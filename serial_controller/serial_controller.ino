@@ -1,18 +1,25 @@
 /*
-  Serial Controller
-    - Respond to single character commands received via serial with servo motion
+Serial Controller
+- Respond to single character commands received via serial with servo motion
 */
 
-#include <Servo.h>    // This includes the "servo" library
-Servo left, right;    // This creates to servo objects, one for each motor
+// includes the "servo" library
+#include <Servo.h>
+// creates two servo objects, one for each motor
+Servo left, right;
+
+// left servo pin
+int left_servo = 8;
+// right servo pin
+int right_servo = 9;
 
 void setup() {
   // Initialize serial port
   Serial.begin(19200);
 
   // Attach servo pins
-  right.attach(9);    // Assign right servo to digital (PWM) pin 9 (change accorinding to your connection)
-  left.attach(10);    // Assign left servo to digital (PWM) pin 10 (change accorinding to your connection)
+  right.attach(left_servo);
+  left.attach(right_servo);
 
   // Initialize (no motion)
   left.write(90);
