@@ -56,7 +56,6 @@ void loop() {
   // Your servos control "speed", therefore 0 is full speed clockwise, 90 is stopped,
   // and 180 is full speed counter-clockwise
 
-  /*
   // Move left servo through the full range of speeds
   for (speed = 0; speed <= 180; speed += 1) {
     left.write(speed);
@@ -70,5 +69,4 @@ void loop() {
     delay(15);
   }
   right.write(90); // stop right servo
-  */
 }
