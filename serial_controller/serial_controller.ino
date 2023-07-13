@@ -59,21 +59,21 @@ void loop() {
   }
 
   // Wait a bit
-  delay(10);
+  delay(5);
 }
 
 // Forward
 void forward()
 {
-  left.write(180);
-  right.write(0);
+  left.write(0);
+  right.write(180);
 }
 
 // Backward
 void backward()
 {
-  left.write(0);
-  right.write(180);
+  left.write(180);
+  right.write(0);
 }
 
 // Left
