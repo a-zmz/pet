@@ -32,7 +32,6 @@ void loop() {
         // turn on buzzer
         /*
         playIM(buzz_pin);
-        */
         digitalWrite(buzz_pin, HIGH); // voltage high, turn buzzer on
         digitalWrite(buzz_pin, LOW); // voltage low, turn buzzer off
         tone(buzz_pin, 659, 500); //E5
@@ -117,6 +116,7 @@ void loop() {
         delay(500);
         tone(buzz_pin, 523, 200); //C5
         delay(100);
+        */
 
         // blink LEDs
         digitalWrite(LED_BUILTIN, HIGH); // voltage high, turn red LED on
