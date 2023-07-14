@@ -1,0 +1,13 @@
+= How to...?
+
+== How to compile & upload arduino file to arduino nano on rpi?
+
+. download `Linux ARM 32bit` version of arduino-cli. after adding the line of
+`arm_64bit = 0`, rpi boot 32bit kernel.
+
+. extract `.tar.gz` file, and move `arduino-cli` to `/dir_of_choice/bin/`
+
+. follow steps here https://arduino.github.io/arduino-cli/dev/getting-started/
+
+. for linux users, set processor to `cpu=atmega328old`, i.e., set `fqbn` to
+`arduino:avr:nano:cpu=atmega328old` if using nano board when compile/upload
