@@ -7,7 +7,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # create audio wave object
-wav_obj = wave.open('/home/amz/Music/first_sound_for_pet.wav', 'rb')
+wav_obj = wave.open('/home/amz/Music/whistle.wav', 'rb')
 
 # get sampling rate
 samp_freq = wav_obj.getframerate()
@@ -25,7 +25,7 @@ n_chan = wav_obj.getnchannels()
 sig_wav = wav_obj.readframes(n_samples)
 
 # get signal waves in np array
-sig_arr = np.frombuffer(sig_wav, dtype=np.int32)
+sig_arr = np.frombuffer(sig_wav, dtype=np.int16)
 
 # get left channel, i.e. from 0, get data with step size of 2
 l_chan = sig_arr[0::2]
