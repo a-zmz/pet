@@ -1,8 +1,12 @@
+"""
+This script record audio using pyaudio.
+
+NOTE: run with sudo previllege to access input device.
+"""
 import pyaudio
 import wave
 import numpy as np
 
-#SOUNDCARD_IDX = 1 # soundcard index
 CHUNK = 4096 # Buffer size
 FORMAT = pyaudio.paInt16 # Data type
 CHANNELS = 2 # Number of channels
@@ -18,7 +22,6 @@ stream = p.open(format=FORMAT,
             channels=CHANNELS,
             rate=RATE,
             input=True,
-            #input_device_index=SOUNDCARD_IDX,
             frames_per_buffer=CHUNK) 
 
 # Append frames of data

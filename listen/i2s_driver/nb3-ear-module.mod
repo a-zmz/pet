@@ -1,1 +1,1 @@
-/home/amz/git/pet/i2s_driver/nb3-ear-module.o
+/home/amz/git/pet/listen/i2s_driver/nb3-ear-module.o

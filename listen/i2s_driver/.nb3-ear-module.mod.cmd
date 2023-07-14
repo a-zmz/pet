@@ -1,1 +1,1 @@
-cmd_/home/amz/git/pet/i2s_driver/nb3-ear-module.mod := printf '%s\n'   nb3-ear-module.o | awk '!x[$$0]++ { print("/home/amz/git/pet/i2s_driver/"$$0) }' > /home/amz/git/pet/i2s_driver/nb3-ear-module.mod
+cmd_/home/amz/git/pet/listen/i2s_driver/nb3-ear-module.mod := printf '%s\n'   nb3-ear-module.o | awk '!x[$$0]++ { print("/home/amz/git/pet/listen/i2s_driver/"$$0) }' > /home/amz/git/pet/listen/i2s_driver/nb3-ear-module.mod
