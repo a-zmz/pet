@@ -1,0 +1,1 @@
+cmd_/home/amz/git/pet/i2s_driver/nb3-ear-module.ko := ld -r -EL -z noexecstack --build-id=sha1  -T scripts/module.lds -o /home/amz/git/pet/i2s_driver/nb3-ear-module.ko /home/amz/git/pet/i2s_driver/nb3-ear-module.o /home/amz/git/pet/i2s_driver/nb3-ear-module.mod.o;  true

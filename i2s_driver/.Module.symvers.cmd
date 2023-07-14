@@ -1,0 +1,1 @@
+cmd_/home/amz/git/pet/i2s_driver/Module.symvers :=  sed 's/ko$$/o/'  /home/amz/git/pet/i2s_driver/modules.order | scripts/mod/modpost -m -a    -o /home/amz/git/pet/i2s_driver/Module.symvers -e -i Module.symvers -T - 

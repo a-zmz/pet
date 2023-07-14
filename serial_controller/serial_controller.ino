@@ -59,7 +59,7 @@ void loop() {
   }
 
   // Wait a bit
-  delay(5);
+  delay(1);
 }
 
 // Forward
