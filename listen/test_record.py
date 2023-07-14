@@ -2,15 +2,14 @@ import pyaudio
 import wave
 import numpy as np
 
-CHUNK = 4096                # Buffer size
-FORMAT = pyaudio.paInt16    # Data type
-CHANNELS = 2                # Number of channels
-RATE = 16000                # Sample rate (Hz)
-RECORD_SECONDS = 5          # Duration
+#SOUNDCARD_IDX = 1 # soundcard index
+CHUNK = 4096 # Buffer size
+FORMAT = pyaudio.paInt16 # Data type
+CHANNELS = 2 # Number of channels
+RATE = 16000 # Sample rate (Hz)
+RECORD_SECONDS = 5 # Duration
 WAVE_OUTPUT_FILENAME = "test.wav"
 
-# TODO this does not work
-assert 0
 # Get pyaudio object
 p = pyaudio.PyAudio()
 
@@ -19,6 +18,7 @@ stream = p.open(format=FORMAT,
             channels=CHANNELS,
             rate=RATE,
             input=True,
+            #input_device_index=SOUNDCARD_IDX,
             frames_per_buffer=CHUNK) 
 
 # Append frames of data
