@@ -65,7 +65,7 @@ def detect_whistling():
 
             if cur_frequency > target_frequency:
                 # Send intructions to the robot
-                message = b'do something'                
+                message = b'o' # turn on the LED               
                 ser.write(message)
 
     except KeyboardInterrupt:
