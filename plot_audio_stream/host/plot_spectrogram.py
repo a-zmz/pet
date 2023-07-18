@@ -11,7 +11,8 @@ def plot_spectrogram(path):
     spectrogram = librosa.stft(audio)
 
     # Convert to decibel
-    spectrogram_db = librosa.amplitude_to_db(spectrogram, ref=np.max)
+    #spectrogram_db = librosa.amplitude_to_db(spectrogram, ref=np.max)
+    spectrogram_db = librosa.amplitude_to_db(np.abs(spectrogram), ref=np.max)
 
     # Plot the spectrogram
     plt.figure(figsize=(14, 5))
@@ -20,8 +21,9 @@ def plot_spectrogram(path):
     plt.title('Spectrogram')
     
     # Save the plot
-    save_path = path.replace("wav", "png")
+    save_path = path.split(".")[0] + "_spectrogram.png"
     plt.savefig(f"{save_path}")
+    print(f"> Spectrogram saved in {save_path}.")
 
 
 # run main function
