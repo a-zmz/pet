@@ -44,26 +44,14 @@ def detect_whistling():
             freq_l = np.fft.rfftfreq(left.size, 1/RATE)
             fft_r = np.fft.rfft(right)
             freq_r = np.fft.rfftfreq(right.size, 1/RATE)
-            assert 0
-            #############################
-            ### COMPUTE THE FOURIER TRANSFORM using RFFT and RFFTFREQ
-            #############################
-            # Write your code, you need either the "left" and/or the "right" variable
-            
 
+            # find dominant frequency, i.e., the highest amplitude
+            dom_frequency = freq_l[np.argmax(fft_l)]
 
-            # find the frequency with the highest amplitude
-            ##########################
-            ##### IDENTIFY THE CURRENT DOMINANT FREQUENCY
-            ##### and THE AMPLITUDE
-            ##### replace the cur_frequency = 0 with your code
-            ##########################
-            cur_frequency = 0
+            # this is the frequency you determined with the recorded audio file
+            target_frequency = 500
 
-
-            target_frequency = 500 # this is the frequency you determined with the recorded audio file
-
-            if cur_frequency > target_frequency:
+            if dom_frequency > target_frequency:
                 # Send intructions to the robot
                 message = b'o' # turn on the LED               
                 ser.write(message)
