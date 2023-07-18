@@ -90,3 +90,6 @@ To make a test recording.
 ```bash
 sudo arecord -D plughw:1 -c2 -r 48000 -f S32_LE -t wav -V stereo -v file_stereo.wav
 ```
+
+If after a reboot, the driver cannot be detected, do `sudo make install` and `sudo
+insmod nb3-ear-module.ko` again, then reboot.
