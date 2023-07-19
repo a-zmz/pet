@@ -8,6 +8,10 @@ import pyaudio
 from picamera2 import Picamera2
 from picamera2.encoders import H264Encoder
 
+from libcamera import Transform
+
+# TODO audio & video are not in sync
+
 # Audio settings
 audio_format = pyaudio.paInt16
 channels = 2
@@ -46,7 +50,7 @@ def record_audio():
 
 def record_video():
     picam2 = Picamera2()
-    video_config = picam2.create_video_configuration() # TODO transform=Transform(vflip=1)
+    video_config = picam2.create_video_configuration(transform=Transform(vflip=1))
     picam2.configure(video_config)
 
     encoder = H264Encoder(10000000)
