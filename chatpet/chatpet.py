@@ -6,8 +6,8 @@ import wave
 import numpy as np
 import curses
 
-# Set OpenAI API Key (secret!!!)
-openai.api_key = "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"
+# Set OpenAI API Key (secret!!! in shhhh)
+openai.api_key = "sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 
 # Initialize conversation history
 conversation = [
@@ -27,7 +27,7 @@ FORMAT = pyaudio.paInt16    # Data type
 CHANNELS = 1                # Number of channels
 RATE = 16000                # Sample rate (Hz)
 MAX_DURATION = 5            # Max recording duration
-WAVE_OUTPUT_FILENAME = "speech.wav"
+WAVE_OUTPUT_FILENAME = "/home/amz/Sounds/speech.wav"
 
 # Get pyaudio object
 pya = pyaudio.PyAudio()
