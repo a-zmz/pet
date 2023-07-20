@@ -23,7 +23,7 @@ int right_servo = 9;
 int speed = 90;
 int inv_speed = 180 - speed;
 // direction
-int direction = 90 - speed;
+int direction = 1;
 
 // initiate cmd as string
 String cmd = "";
@@ -50,16 +50,21 @@ void setup() {
 }
 
 void loop() {
+    // check direction
+    if (speed >= 90) {
+        direction = 1; // forward
+    } else {
+        direction = -1; // backward
+    }
+
     // check for incoming bytes
     if (Serial.available() > 0) {
         cmd = Serial.readStringUntil('\n');
 
     if (cmd == "buzz") {
         // turn on buzzer
-        tone(buzz_pin, 659, 500); //E5
-        delay(500);
-        tone(buzz_pin, 523, 250); //C5
-        delay(250);
+        tone(buzz_pin, 784, 500); //E5
+        delay(100);
     }
 
     if (cmd == "no_buzz") {
@@ -73,16 +78,14 @@ void loop() {
     }
 
     if (cmd == "red_off") {
-        // turn on built-in LED
+        // turn off built-in LED
         digitalWrite(LED_BUILTIN, LOW);
     }
 
-    if (cmd == "green_on") {
+    if (cmd == "green_blink") {
         // turn on green LED
         digitalWrite(green_led_pin, HIGH);
-    }
-
-    if (cmd == "green_off") {
+        delay(200);
         // turn off green LED
         digitalWrite(green_led_pin, LOW);
     }
@@ -119,10 +122,10 @@ void loop() {
 motors gradually increase to half-max speed
 */
 
-// forward
-void forward()
+// stop
+void stop()
 {
-    for (speed = 90; speed >= 45; speed -= 1) {
+    for (speed; speed != 90; speed -= direction) {
         left.write(speed);
         inv_speed = 180 - speed;
         right.write(inv_speed);
@@ -133,29 +136,55 @@ void forward()
 // backward
 void backward()
 {
-    for (speed = 90; speed <= 135; speed += 1) {
+    for (speed; speed >= 45; speed -= 1) {
         left.write(speed);
         inv_speed = 180 - speed;
         right.write(inv_speed);
         delay(1);
     }
+
+    delay(200);
+
+    /*
+    for (speed = 45; speed != 90; speed -= direction) {
+        left.write(speed);
+        inv_speed = 180 - speed;
+        right.write(inv_speed);
+        delay(1);
+    }
+    */
 }
 
-// stop
-void stop()
+// forward
+void forward()
 {
-    for (speed; speed = 90; speed += direction * 5/abs(direction)) {
+    for (speed; speed <= 135; speed += direction) {
         left.write(speed);
         inv_speed = 180 - speed;
         right.write(inv_speed);
         delay(1);
     }
+    delay(200);
+    /*
+    for (speed = 135; speed != 90; speed -= direction) {
+        left.write(speed);
+        inv_speed = 180 - speed;
+        right.write(inv_speed);
+        delay(1);
+    }
+    */
 }
 
 // left turn
 void turn_left()
 {
-    for (speed; speed = 135; speed += direction/abs(direction)) {
+    for (speed; speed >= 45; speed -= 1) {
+        left.write(speed);
+        right.write(speed);
+        delay(1);
+    }
+    delay(500);
+    for (speed = 45; speed < 90 ; speed += 1) {
         left.write(speed);
         right.write(speed);
         delay(1);
@@ -165,9 +194,16 @@ void turn_left()
 // right turn
 void turn_right()
 {
-    for (speed = 90; speed = 45; speed += direction/abs(direction)) {
+    for (speed; speed <= 135; speed += 1) {
+        left.write(speed);
+        right.write(speed);
+        delay(1);
+    }
+    delay(500);
+    for (speed = 135; speed > 90 ; speed -= 1) {
         left.write(speed);
         right.write(speed);
         delay(1);
     }
 }
+
