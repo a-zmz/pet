@@ -1,9 +1,10 @@
-#!/usr/bin/python3
+#! /usr/bin/python3
 
 # Mostly copied from https://picamera.readthedocs.io/en/release-1.13/recipes2.html
 # Run this script, then point a web browser at http:<this-ip-address>:8000
 # Note: needs simplejpeg to be installed (pip3 install simplejpeg).
 
+import time
 import io
 import logging
 import socketserver
@@ -16,6 +17,8 @@ from picamera2 import Picamera2
 from picamera2.encoders import JpegEncoder
 from picamera2.outputs import FileOutput
 
+import serial
+
 PAGE = """\
 <html>
 <head>
@@ -23,10 +26,24 @@ PAGE = """\
 </head>
 <body>
 <h1>Pet Video Streaming Demo</h1>
-<img src="stream.mjpg" width="640" height="480" />
+<img src="stream.mjpg" width="960" height="720" />
 </body>
 </html>
 """
+
+# Configure serial port
+ser = serial.Serial()
+ser.baudrate = 19200
+ser.port = '/dev/ttyUSB0'
+
+# Open serial port
+try:
+    ser.open()
+except:
+    ser.close()
+    ser.open()
+
+time.sleep(2.00) # Wait for connection before sending any data
 
 
 class StreamingOutput(io.BufferedIOBase):
@@ -87,18 +104,30 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                             gray,
                             scaleFactor=1.1,
                             minNeighbors=5,
-                            minSize=(30, 30), # min size of face
+                            minSize=(80, 80), # min size of face
                             flags=cv2.CASCADE_SCALE_IMAGE,
                          )
-                        for (x, y, w, h) in rects:
-                            # draw rectangle on the frame
-                            cv2.rectangle(
-                                frame,
-                                (x, y),
-                                (x + w, y + h),
-                                (0, 255, 0), # green
-                                20, # line thickness
-                            )
+
+                        if len(rects) > 0:
+                            # buzz
+                            ser.write(b'buzz\n')
+                            # green light, got face
+                            ser.write(b'green_blink\n')
+                            # go forward
+                            ser.write(b'forward\n')
+
+                            for (x, y, w, h) in rects:
+                                # draw rectangle on the frame
+                                cv2.rectangle(
+                                    frame,
+                                    (x, y),
+                                    (x + w, y + h),
+                                    (0, 255, 0), # green
+                                    20, # line thickness
+                                )
+                        else:
+                            # go forward
+                            ser.write(b'stop\n')
 
                     # and now we convert it back to JPEG to stream it
                     _, frame = cv2.imencode('.JPEG', frame) 
@@ -124,13 +153,25 @@ class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
 
 
 picam2 = Picamera2()
-picam2.configure(picam2.create_video_configuration(main={"size": (640, 480)}))
+picam2.configure(picam2.create_video_configuration(main={"size": (960, 720)}))
 output = StreamingOutput()
 picam2.start_recording(JpegEncoder(), FileOutput(output))
+
+# turn on red light, on air
+ser.write(b'red_on\n')
 
 try:
     address = ('', 8000)
     server = StreamingServer(address, StreamingHandler)
     server.serve_forever()
+except KeyboardInterrupt:
+    # turn off red light
+    ser.write(b'red_off\n')
+    # stop
+    ser.write(b'stop\n')
+    ser.close()
+
 finally:
     picam2.stop_recording()
+
+ser.close()
