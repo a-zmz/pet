@@ -3,7 +3,8 @@ import numpy as np
 import cv2 
 
 # Load test image
-im = cv2.imread("test.jpg")
+#im = cv2.imread("/home/amz/Pictures/pi_cam_test_vflip.jpg")
+im = cv2.imread("/home/amz/Pictures/smile.png")
 
 det = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
 
@@ -23,4 +24,4 @@ for (x, y, w, h) in rects:
     # Remember, order in images: [y, x, channel]
     cv2.rectangle(im, (x, y), (x + w, y + h), (0, 255, 0), 20)
 
-cv2.imwrite("test_face.jpg", im)
+cv2.imwrite("/home/amz/Picture/test_face.jpg", im)
