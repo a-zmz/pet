@@ -1,0 +1,27 @@
+= final thoughts
+
+This was such an amazing workshop, I enjoyed so much! Aparted expected, I have learnt
+so much unexpected cool stuff throughout the week, and learning will definitely not
+stop here.
+
+I have managed to let my robot be completely wireless, drive it run around, let it stream
+audio & video, react to my whistle, recognise faces and react to it, and I have
+incorporated ChatGPT (it turned out to be a sarcastic English bot lol).
+
+The annoying problem I am having right now is that when I am streaming video, I can
+access via https://ip_addr:port from laptop that is connected to the same local
+network, but not devices outside of it.
+For that I will need to look into Flask.
+
+In the future, I would like it to become a very engaging lab pet: plays songs people
+like at given theme (e.g., Christmas, and it will look like the coolest Christmas
+tree of course), recognise people's voice and faces, and open the office door for us
+if lab member is at the door.
+
+Building this bot reminded me of how I loved tearing machines apart and reassemble
+them when I was a kid, and everyone is able to have their own robot friend even with
+simple materials.
+Although there is still a lot to learn, I would also like to design my own bot from
+scratch, so that my dogs and my friend's cat can have a bot friend.
+
+All in all, the experience in the past week will always be cherish :heart
