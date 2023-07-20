@@ -71,15 +71,36 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                         frame = cv2.imdecode(np.frombuffer(frame, dtype=np.uint8),
                                              cv2.IMREAD_COLOR)
                         
-                        
-                        
-                        #     ###############
-                        #     ## HERE CAN GO ALL IMAGE PROCESSING
-                        #     ###############
-                        frame = frame[::-1]
-                            
-                            
-                        #     ### and now we convert it back to JPEG to stream it
+                        ################
+                        # HERE GOES ALL IMAGE PROCESSING
+                        ################
+
+                        # vertical flip
+                        frame = frame[::-1].copy()
+                        # load this frame into cv2 as grayscale
+                        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+
+                        # initiate cascade classifier
+                        det = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
+                        # get face rectangle
+                        rects = det.detectMultiScale(
+                            gray,
+                            scaleFactor=1.1,
+                            minNeighbors=5,
+                            minSize=(30, 30), # min size of face
+                            flags=cv2.CASCADE_SCALE_IMAGE,
+                         )
+                        for (x, y, w, h) in rects:
+                            # draw rectangle on the frame
+                            cv2.rectangle(
+                                frame,
+                                (x, y),
+                                (x + w, y + h),
+                                (0, 255, 0), # green
+                                20, # line thickness
+                            )
+
+                    # and now we convert it back to JPEG to stream it
                     _, frame = cv2.imencode('.JPEG', frame) 
 
                     self.wfile.write(b'--FRAME\r\n')
